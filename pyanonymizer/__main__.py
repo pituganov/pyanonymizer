@@ -1,12 +1,8 @@
 """
-Модуль для создания датасета с чатами.
-
-Сохраняет датасет в data/raw/chats.csv
+Скрипт для анонимизации текстовых данных
 """
 from argparse import ArgumentParser
-from datetime import datetime, timedelta
 from pathlib import Path
-from typing import List, Tuple
 
 import pandas as pd
 from deeppavlov import build_model
