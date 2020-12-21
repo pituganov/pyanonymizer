@@ -1,9 +1,7 @@
 """Модуль для предобработки текста"""
-import re
 import string
 from typing import List
 
-import pymorphy2
 from tqdm import tqdm
 from deeppavlov.core.models.component import Component
 from natasha import (
@@ -12,6 +10,7 @@ from natasha import (
     MoneyExtractor,
     NamesExtractor,
 )
+import nltk
 from nltk.corpus import stopwords
 
 from pyanonymizer.ner import (
@@ -24,6 +23,8 @@ from pyanonymizer.ner import (
     PhotoExtractor,
     StickerExtractor,
 )
+
+nltk.download("stopwords")
 
 STOP_WORDS = [
     "доброе",
