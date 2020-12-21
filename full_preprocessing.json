@@ -1,0 +1,22 @@
+{
+    "chainer": {
+        "in": [
+            "x"
+        ],
+        "pipe": [
+            {
+                "class_name": "pyanonymizer.preprocessing:EntityExtractor",
+                "verbose": false,
+                "in": [
+                    "x"
+                ],
+                "out": [
+                    "x_ner"
+                ]
+            }
+        ],
+        "out": [
+            "x_ner"
+        ]
+    }
+}

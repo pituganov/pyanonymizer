@@ -1,0 +1,7 @@
+deeppavlov==0.13.0
+natasha==0.10.0
+nltk==3.4.5
+pymorphy2==0.8
+tg-tqdm==0.0.2
+tqdm==4.41.1
+pandas==0.25.3
