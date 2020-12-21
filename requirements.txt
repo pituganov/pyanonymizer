@@ -5,3 +5,5 @@ pymorphy2==0.8
 tqdm==4.41.1
 pandas==0.25.3
 yargy==0.11.0
+xlrd==1.2.0
+openpyxl==3.0.0
