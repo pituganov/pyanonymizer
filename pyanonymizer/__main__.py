@@ -14,14 +14,10 @@ def main(filename: Path, savepath: Path, column: int):
     """main"""
     preprocessor = build_model(f"{ROOT_DIR}/full_preprocessing.json")
 
-    assert (
-        ".xls" in filename.suffix
-    ), "У входного файла должно быть расширение .xlsx"
-    assert (
-        ".xls" in savepath.suffix
-    ), "У выходного файла должно быть расширение .xlsx"
-
-    data = pd.read_excel(filename, header=None)
+    if "csv" in filename:
+        data = pd.read_csv(filename, header=None)
+    else:
+        data = pd.read_excel(filename, header=None)
 
     anon_text = preprocessor.batched_call(
         data[data.columns[column].astype(str)]
