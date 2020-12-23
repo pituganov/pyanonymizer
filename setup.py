@@ -29,5 +29,5 @@ setup(
     description="Утилита для анонимизации текстовых данных",
     author="pitugano@intersvyaz.net",
     license="",
-    **read_requirements()
+    # **read_requirements()
 )
