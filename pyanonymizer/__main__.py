@@ -14,7 +14,7 @@ def main(filename: Path, savepath: Path, column: int):
     """main"""
     preprocessor = build_model(f"{ROOT_DIR}/full_preprocessing.json")
 
-    if "csv" in filename:
+    if "csv" in filename.suffix:
         data = pd.read_csv(filename, header=None)
     else:
         data = pd.read_excel(filename, header=None)
