@@ -23,7 +23,9 @@ def main(filename: Path, savepath: Path, column: int):
 
     data = pd.read_excel(filename, header=None)
 
-    anon_text = preprocessor.batched_call(data[data.columns[column]])
+    anon_text = preprocessor.batched_call(
+        data[data.columns[column].astype(str)]
+    )
     data[data.columns[column]] = anon_text
 
     data.to_excel(savepath, index=False)
