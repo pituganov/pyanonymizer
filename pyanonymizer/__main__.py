@@ -16,6 +16,7 @@ def main(filename: Path, savepath: Path, column, encoding: str, sep: str):
 
     try:
         column = int(column)
+        column = column - 1
     except Exception as err:
         pass
 
@@ -59,6 +60,4 @@ if __name__ == "__main__":
         "--encoding", "-e", help="Кодировка", type=str, default="windows-1251"
     )
     args = parser.parse_args()
-    main(
-        args.filename, args.savepath, args.column - 1, args.encoding, args.sep
-    )
+    main(args.filename, args.savepath, args.column, args.encoding, args.sep)
