@@ -19,6 +19,9 @@ def main(filename: Path, savepath: Path, column: int, encoding: str, sep: str):
     else:
         data = pd.read_excel(filename, header=None)
 
+    print(data.columns)
+    print(data.head(1))
+
     anon_text = preprocessor.batched_call(
         data[data.columns[column].astype(str)]
     )
