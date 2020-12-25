@@ -5,19 +5,27 @@ from argparse import ArgumentParser
 from pathlib import Path
 
 import pandas as pd
+from tqdm import tqdm
 from deeppavlov import build_model
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 
 
-def main(filename: Path, savepath: Path, column, encoding: str, sep: str):
+def main(
+    filename: Path,
+    savepath: Path,
+    column,
+    encoding: str,
+    sep: str,
+    verbose: bool,
+):
     """main"""
     preprocessor = build_model(f"{ROOT_DIR}/full_preprocessing.json")
 
     try:
         column = int(column)
         column = column - 1
-    except Exception as err:
+    except Exception:
         pass
 
     if "csv" in filename.suffix:
@@ -30,15 +38,18 @@ def main(filename: Path, savepath: Path, column, encoding: str, sep: str):
     else:
         data = pd.read_excel(filename, header=None)
 
-    print(data.columns)
-    print(data.head(1))
-
     if isinstance(column, str):
         texts = data[data.columns[column]].astype(str)
     elif isinstance(column, int):
         texts = data[data.columns[column]].astype(str)
 
-    anon_text = preprocessor.batched_call(texts)
+    if verbose:
+        batch_size = 32
+        anon_text = []
+        for i in tqdm(range(0, len(texts), batch_size)):
+            anon_text += preprocessor.batched_call(texts[i : i + batch_size])
+    else:
+        anon_text = preprocessor.batched_call(texts)
     data[data.columns[column]] = anon_text
 
     data.to_excel(savepath, index=False)
@@ -59,5 +70,19 @@ if __name__ == "__main__":
     parser.add_argument(
         "--encoding", "-e", help="Кодировка", type=str, default="windows-1251"
     )
+    parser.add_argument(
+        "--verbose",
+        dest="verbose",
+        action="store_true",
+        default=False,
+        help="Выводить доп информацию",
+    )
     args = parser.parse_args()
-    main(args.filename, args.savepath, args.column, args.encoding, args.sep)
+    main(
+        args.filename,
+        args.savepath,
+        args.column,
+        args.encoding,
+        args.sep,
+        args.verbose,
+    )
